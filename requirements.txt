@@ -1,0 +1,6 @@
+requests
+pydantic
+pytest
+faker
+curlify
+email-validator
