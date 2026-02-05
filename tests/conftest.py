@@ -108,15 +108,15 @@ def wait_for_services():
     """Ожидание готовности сервисов перед запуском тестов"""
     timeout = 180
     start_time = time.time()
-    
+
     while time.time() < start_time + timeout:
         try:
             auth_response = requests.get(f"{AUTH_URL}/docs")
             auth_response.raise_for_status()
-            
+
             university_response = requests.get(f"{UNIVERSITY_URL}/docs")
             university_response.raise_for_status()
-            
+
             print("Services are ready!")
             break
         except Exception:
