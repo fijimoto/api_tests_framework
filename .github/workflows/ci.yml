@@ -35,11 +35,6 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       
-      - name: Checkout docker-compose
-        run: |
-          curl -o docker-compose.yml https://raw.githubusercontent.com/fijimoto/api_tests_framework/main/docker-compose.yml
-          curl -o .env https://raw.githubusercontent.com/fijimoto/api_tests_framework/main/.env
-      
       - name: Start services with Docker Compose
         run: docker compose up -d
       
