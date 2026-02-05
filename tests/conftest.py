@@ -6,6 +6,8 @@ from helpers.auth_helper import AuthHelper
 from helpers.grades_helper import GradesHelper
 from services.auth_service import AuthService
 from services.grades_service import GradesService
+import time
+import requests
 
 fake = Faker()
 
@@ -98,3 +100,26 @@ def auth_service(auth_api_utils: ApiUtils) -> AuthService:
 def grades_service(university_api_utils: ApiUtils) -> GradesService:
     """GradesService для высокоуровневых тестов"""
     return GradesService(university_api_utils)
+
+# ============== Ожидание готовности сервисов ==============
+
+@pytest.fixture(scope="session", autouse=True)
+def wait_for_services():
+    """Ожидание готовности сервисов перед запуском тестов"""
+    timeout = 180
+    start_time = time.time()
+    
+    while time.time() < start_time + timeout:
+        try:
+            auth_response = requests.get(f"{AUTH_URL}/docs")
+            auth_response.raise_for_status()
+            
+            university_response = requests.get(f"{UNIVERSITY_URL}/docs")
+            university_response.raise_for_status()
+            
+            print("Services are ready!")
+            break
+        except Exception:
+            time.sleep(1)
+    else:
+        raise RuntimeError(f"Services weren't started during '{timeout}' seconds.")
