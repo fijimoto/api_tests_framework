@@ -6,7 +6,6 @@ from helpers.auth_helper import AuthHelper
 from helpers.grades_helper import GradesHelper
 from services.auth_service import AuthService
 from services.grades_service import GradesService
-from models.auth_models import RegisterRequest, LoginRequest
 
 fake = Faker()
 

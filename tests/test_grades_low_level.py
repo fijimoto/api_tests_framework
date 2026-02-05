@@ -64,7 +64,7 @@ class TestGetGradesStatsLowLevel:
         assert response.status_code == 200, (
             f"Expected 200, got {response.status_code}. Body: {response.text}"
         )
-        
+
         count = response.json()["count"]
         assert count >= 0, f"Expected count >= 0, got {count}"
 
