@@ -4,3 +4,4 @@ pytest
 faker
 curlify
 email-validator
+allure-pytest
